@@ -1,6 +1,8 @@
 #include <ncurses.h>
 #include <stdio.h>  //for test gcc -lcurses
 #include <unistd.h>
+#include <time.h>
+#include <stdlib.h>
 
 void print(int ball_x, int ball_y, int roc_1, int roc_2, int first, int second);
 void tableTop(int first, int second, char gr_4, char gr_2);
@@ -25,18 +27,18 @@ int main() {
         nodelay(stdscr, TRUE);
         text = getch();
         if (text == 'a' || text == 'A')
-            roc_1 -= 1;
+            roc_1 -= 2;
         else if (text == 'z' || text == 'Z')
-            roc_1 += 1;
+            roc_1 += 2;
         else if (text == 'k' || text == 'K')
-            roc_2 -= 1;
+            roc_2 -= 2;
         else if (text == 'm' || text == 'M')
-            roc_2 += 1;
+            roc_2 += 2;
         clear();
-        usleep(70000);
+        usleep(40000);
         roc_1 = roc_pr_1(roc_1);
         roc_2 = roc_pr_2(roc_2);
-
+        srand(time(NULL));
         if (ball_x == 3) {
             if (roc_1 == ball_y || roc_1 + 1 == ball_y || roc_1 + 2 == ball_y) {
                 if (ball_y == 25 || ball_y == 1) {
@@ -51,9 +53,9 @@ int main() {
                 dvizh_x = dvizh_x * (-1);
                 dvizh_y = dvizh_y * (-1);
             } else {
-                second += 1;
+                second += 1;                
                 ball_x = height / 2 - 2;
-                ball_y = weight / 2 - 2;
+                ball_y = rand() % weight;
                 dvizh_x = 1;
                 dvizh_y = 1;
             }
@@ -73,7 +75,7 @@ int main() {
             } else {
                 first += 1;
                 ball_x = height / 2;
-                ball_y = weight / 2;
+                ball_y = rand() % weight;
                 dvizh_x = dvizh_x * (-1);
                 dvizh_y = dvizh_y * (-1);
             }
